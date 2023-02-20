@@ -5,7 +5,9 @@ import Categories from "./components/Categories/Categories";
 import ReactDOM from "react-dom";
 import Sort from "./components/Sort/Sort";
 import PizzaBlock from "./components/PizzaBlock/PizzaBlock";
+import pizzas from "./assets/pizzas-db/pizzas.json";
 
+console.log(pizzas);
 function App() {
   return (
     <div className="wrapper">
@@ -18,8 +20,15 @@ function App() {
           </div>
           <h2 className="content__title">Все пиццы</h2>
           <div className="content__items">
-            <PizzaBlock title="Куринная" price={7500} />
-            <PizzaBlock />
+            {pizzas.map((object) => (
+              <PizzaBlock
+                image={object.imageUrl}
+                name={object.name}
+                price={object.price}
+                dims={object.dims}
+                types={object.types}
+              />
+            ))}
           </div>
         </div>
       </div>
