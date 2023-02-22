@@ -1,37 +1,41 @@
 import React, { useState } from "react";
 
-const PizzaBlock = ({ name, price, image, dims, types }) => {
+const PizzaBlock = ({ name, price, imageUrl, sizes, types }) => {
   const [pizzaCount, setPizzaCount] = useState(0);
+  const [activeType, setActiveType] = useState(1);
+  const [activeSize, setActiveSize] = useState(0);
 
   const pizzaTypes = ["Тонкое", "Традиционное"];
 
-  const [activeType, setActiveType] = useState(0);
-
-  const onClickCategory = (index) => {
-    setActiveType(index);
-  };
   const onClickAdd = () => {
     setPizzaCount(pizzaCount + 1);
   };
 
   return (
     <div className="pizza-block">
-      <img className="pizza-block__image" src={image} alt="Pizza" />
+      <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
       <h4 className="pizza-block__title">{name}</h4>
       <div className="pizza-block__selector">
         <ul>
           {types.map((typeId) => (
             <li
-              onClick={() => onClickCategory(pizzaTypes[typeId])}
-              className={activeType === typeId ? "active" : ""}
+              key={typeId}
+              onClick={() => setActiveType(pizzaTypes[typeId])}
+              className={activeType === pizzaTypes[typeId] ? "active" : ""}
             >
               {pizzaTypes[typeId]}
             </li>
           ))}
         </ul>
         <ul>
-          {dims.map((size) => (
-            <li>{size} см</li>
+          {sizes.map((size) => (
+            <li
+              key={size}
+              onClick={() => setActiveSize(size)}
+              className={activeSize === size ? "active" : ""}
+            >
+              {size} см
+            </li>
           ))}
         </ul>
       </div>

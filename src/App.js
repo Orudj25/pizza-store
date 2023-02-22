@@ -2,13 +2,15 @@ import React from "react";
 import "./scss/app.scss";
 import Header from "./components/Header/Header";
 import Categories from "./components/Categories/Categories";
-import ReactDOM from "react-dom";
 import Sort from "./components/Sort/Sort";
 import PizzaBlock from "./components/PizzaBlock/PizzaBlock";
 import pizzas from "./assets/pizzas-db/pizzas.json";
 
-console.log(pizzas);
 function App() {
+  fetch("https://63f6062e9daf59d1ad8049b9.mockapi.io/items").then((res) =>
+    res.json().then((json) => json)
+  );
+
   return (
     <div className="wrapper">
       <Header />
@@ -21,13 +23,7 @@ function App() {
           <h2 className="content__title">Все пиццы</h2>
           <div className="content__items">
             {pizzas.map((object) => (
-              <PizzaBlock
-                image={object.imageUrl}
-                name={object.name}
-                price={object.price}
-                dims={object.dims}
-                types={object.types}
-              />
+              <PizzaBlock {...object} />
             ))}
           </div>
         </div>
