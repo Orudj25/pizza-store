@@ -1,0 +1,22 @@
+.root{
+  li{
+    display: inline-flex;
+    padding: 15px;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border: 1px solid #fe5f1e;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.2s all ease-in-out;
+  }
+  a{
+    line-height: 10px;
+  }
+
+  :hover{
+    width: 45px;
+    height: 45px;
+    align-items: center;
+  }
+}

@@ -5,8 +5,9 @@ import Categories from "../components/Categories/Categories";
 import Sort from "../components/Sort/Sort";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import Index from "../components/PizzaBlock";
+import Pagination from "../components/Pagination";
 
-const Home = () => {
+const Home = ({ searchValue }) => {
   const [items, setItems] = useState([]);
   const [isLoading, SetIsLoading] = useState(true);
   const [categoryId, setCategoryId] = useState(0);
@@ -21,9 +22,10 @@ const Home = () => {
     const sortBy = sortType.sortProperty.replace("-", "");
     const order = sortType.sortProperty.includes("-") ? "asc" : "desc";
     const category = categoryId > 0 ? `category=${categoryId}` : "";
+    const search = searchValue ? `&search=${searchValue}` : "";
 
     fetch(
-      `https://63f6062e9daf59d1ad8049b9.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`
+      `https://63f6062e9daf59d1ad8049b9.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}${search}`
     )
       .then((res) => res.json())
       .then((json) => {
@@ -31,7 +33,22 @@ const Home = () => {
         SetIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [categoryId, sortType]);
+  }, [categoryId, sortType, searchValue]);
+
+  console.log(items);
+
+  const pizzas = items
+    // .filter((object) => {
+    //   if (object.name.toLowerCase().includes(searchValue.toLowerCase())) {
+    //     return true;
+    //   }
+    //   return false;
+    // })
+    .map((object) => <Index key={object.id} {...object} />);
+
+  const skeletons = [...new Array(6)].map((_, index) => (
+    <Skeleton key={index} />
+  ));
 
   return (
     <div className="container">
@@ -43,11 +60,8 @@ const Home = () => {
         <Sort value={sortType} onChangeSort={(index) => setSortType(index)} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">
-        {isLoading
-          ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-          : items.map((object) => <Index key={object.id} {...object} />)}
-      </div>
+      <div className="content__items">{isLoading ? skeletons : pizzas}</div>
+      <Pagination />
     </div>
   );
 };
