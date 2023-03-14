@@ -1,6 +1,18 @@
-.root{
-  li{
+.root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+
+  li {
     display: inline-flex;
+    :hover{
+      background: #fe5f1e;
+      color: white;
+    }
+  }
+
+  a {
     padding: 15px;
     width: 40px;
     height: 40px;
@@ -9,14 +21,10 @@
     border-radius: 30px;
     cursor: pointer;
     transition: 0.2s all ease-in-out;
-  }
-  a{
     line-height: 10px;
+    font-size: 14px;
+    font-weight: bold;
+
   }
 
-  :hover{
-    width: 45px;
-    height: 45px;
-    align-items: center;
-  }
 }
