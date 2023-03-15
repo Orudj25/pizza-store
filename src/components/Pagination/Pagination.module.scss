@@ -6,10 +6,12 @@
 
   li {
     display: inline-flex;
-    :hover{
+
+    :hover {
       background: #fe5f1e;
       color: white;
     }
+
   }
 
   a {
@@ -24,7 +26,14 @@
     line-height: 10px;
     font-size: 14px;
     font-weight: bold;
-
   }
+}
 
+:global{
+  .selected{
+    a{
+      background: #fe5f1e;
+      color: white;
+    }
+  }
 }
