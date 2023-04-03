@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 import { useEffect, useState, useContext } from "react";
 
@@ -32,15 +33,14 @@ const Home = () => {
     const category = categoryId > 0 ? `category=${categoryId}` : "";
     const search = searchValue ? `&search=${searchValue}` : "";
 
-    fetch(
-      `https://63f6062e9daf59d1ad8049b9.mockapi.io/items?page=${currentPage}&sortBy=${sortBy}&limit=4&${category}&order=${order}${search}`
-    )
-      .then((res) => res.json())
-      .then((json) => {
-        setItems(json);
+    axios
+      .get(
+        `https://63f6062e9daf59d1ad8049b9.mockapi.io/items?page=${currentPage}&sortBy=${sortBy}&limit=4&${category}&order=${order}${search}`
+      )
+      .then((res) => {
+        setItems(res.data);
         SetIsLoading(false);
       });
-    window.scrollTo(0, 0);
   }, [categoryId, sortType, searchValue, currentPage]);
 
   const pizzas = items.map((object) => <Index key={object.id} {...object} />);
@@ -50,7 +50,6 @@ const Home = () => {
   ));
 
   const onClickCategory = (index) => {
-    console.log("action setCategoryId", setCategoryId(index));
     dispatch(setCategoryId(index));
   };
 
